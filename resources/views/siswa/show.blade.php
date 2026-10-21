@@ -42,6 +42,34 @@
                 {{ ucfirst($siswa->status) }}
             </span>
         </div>
+
+        <hr class="my-4 border-gray-200">
+        <h4 class="font-medium text-gray-900 mb-4">Data Orang Tua & Alamat</h4>
+
+        <div>
+            <p class="text-sm text-gray-500">Nama Ayah</p>
+            <p class="font-medium text-gray-900">{{ $siswa->nama_ayah ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500">Pekerjaan Ayah</p>
+            <p class="font-medium text-gray-900">{{ $siswa->pekerjaan_ayah ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500">Nama Ibu</p>
+            <p class="font-medium text-gray-900">{{ $siswa->nama_ibu ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500">Pekerjaan Ibu</p>
+            <p class="font-medium text-gray-900">{{ $siswa->pekerjaan_ibu ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500">No. HP Orang Tua</p>
+            <p class="font-medium text-gray-900">{{ $siswa->no_hp_orang_tua ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500">Alamat Lengkap</p>
+            <p class="font-medium text-gray-900">{{ $siswa->alamat ?? '-' }}</p>
+        </div>
     </div>
     <div class="mt-6 flex gap-2">
         <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Edit</a>

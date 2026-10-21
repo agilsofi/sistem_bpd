@@ -29,7 +29,7 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">No</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Username</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nama</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pemilik Akun</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
@@ -40,7 +40,7 @@
                 @forelse($users as $index => $u)
                 <tr>
                     <td class="px-6 py-4 text-sm text-gray-900">{{ $index + 1 }}</td>
-                    <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $u->username }}</td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $u->nama_tampil }}</td>
                     <td class="px-6 py-4 text-sm text-gray-600">
                         <span class="px-2 py-1 text-xs rounded-full 
                             {{ $u->role === 'admin' ? 'bg-purple-100 text-purple-800' : '' }}

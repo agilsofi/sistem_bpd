@@ -43,7 +43,7 @@
                 </select>
             </div>
             <div class="flex items-end gap-2">
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">Filter</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">Cari</button>
                 <a href="{{ route('rekap-poin.index') }}" class="px-4 py-2 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 text-sm">Reset</a>
             </div>
         </form>

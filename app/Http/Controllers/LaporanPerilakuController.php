@@ -23,6 +23,13 @@ class LaporanPerilakuController extends Controller
             $query->where('id_guru', $idGuru);
         }
 
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->whereHas('siswa', function($s) use ($q) {
+                $s->where('nama', 'like', "%{$q}%")
+                  ->orWhere('NIS', 'like', "%{$q}%");
+            });
+        }
         if ($request->filled('tanggal_dari')) {
             $query->where('tanggal_kejadian', '>=', $request->tanggal_dari);
         }

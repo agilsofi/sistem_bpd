@@ -25,7 +25,11 @@
     </div>
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
-        <form method="GET" action="{{ route('laporan-perilaku.index') }}" class="grid grid-cols-5 gap-4">
+        <form method="GET" action="{{ route('laporan-perilaku.index') }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Cari Siswa</label>
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari NIS atau nama..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+            </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Dari</label>
                 <input type="date" name="tanggal_dari" value="{{ request('tanggal_dari') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
@@ -65,9 +69,9 @@
                     <option value="ditolak" {{ request('status_verifikasi') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                 </select>
             </div>
-            <div class="col-span-5 flex justify-end space-x-2">
+            <div class="md:col-span-3 lg:col-span-6 flex justify-end space-x-2">
                 <a href="{{ route('laporan-perilaku.index') }}" class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm">Reset</a>
-                <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 text-sm">Filter</button>
+                <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 text-sm">Cari</button>
             </div>
         </form>
     </div>

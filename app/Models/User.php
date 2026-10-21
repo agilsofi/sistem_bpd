@@ -66,6 +66,17 @@ class User extends Authenticatable
         return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 
+    public function getNamaTampilAttribute()
+    {
+        if ($this->guru) {
+            return $this->guru->nama_guru;
+        }
+        if ($this->siswa) {
+            return $this->siswa->nama;
+        }
+        return $this->username;
+    }
+
     public function logAktivitas()
     {
         return $this->hasMany(LogAktivitas::class, 'id_user');

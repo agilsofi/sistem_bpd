@@ -32,39 +32,81 @@
                 </li>
                 
                 @if(auth()->user()->role === 'admin')
-                    <li class="pt-5 pb-1">
-                        <p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Master Data</p>
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-master')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Master Data</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('siswa.*') || request()->routeIs('guru.*') || request()->routeIs('kelas.*') || request()->routeIs('jurusan.*') || request()->routeIs('tahun-ajaran.*') || request()->routeIs('pengguna.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-master" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('siswa.*') || request()->routeIs('guru.*') || request()->routeIs('kelas.*') || request()->routeIs('jurusan.*') || request()->routeIs('tahun-ajaran.*') || request()->routeIs('pengguna.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('siswa.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Data Siswa</a></li>
+                            <li><a href="{{ route('guru.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('guru.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Data Guru</a></li>
+                            <li><a href="{{ route('kelas.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('kelas.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Data Kelas</a></li>
+                            <li><a href="{{ route('jurusan.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('jurusan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Data Jurusan</a></li>
+                            <li><a href="{{ route('tahun-ajaran.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('tahun-ajaran.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Tahun Ajaran</a></li>
+                            <li><a href="{{ route('pengguna.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('pengguna.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Pengguna</a></li>
+                        </ul>
                     </li>
-                    <li><a href="{{ route('siswa.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Data Siswa</span></a></li>
-                    <li><a href="{{ route('guru.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('guru.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Data Guru</span></a></li>
-                    <li><a href="{{ route('kelas.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('kelas.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Data Kelas</span></a></li>
-                    <li><a href="{{ route('jurusan.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('jurusan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Data Jurusan</span></a></li>
-                    <li><a href="{{ route('tahun-ajaran.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('tahun-ajaran.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Tahun Ajaran</span></a></li>
-                    <li><a href="{{ route('pengguna.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('pengguna.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Pengguna</span></a></li>
+
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-perilaku-admin')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Perilaku</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('laporan-perilaku.*') || request()->routeIs('kategori-perilaku.*') || request()->routeIs('jenis-perilaku.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-perilaku-admin" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('laporan-perilaku.*') || request()->routeIs('kategori-perilaku.*') || request()->routeIs('jenis-perilaku.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('laporan-perilaku.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('laporan-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Laporan Perilaku</a></li>
+                            <li><a href="{{ route('kategori-perilaku.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('kategori-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Kategori Perilaku</a></li>
+                            <li><a href="{{ route('jenis-perilaku.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('jenis-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Jenis Perilaku</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-bimbingan-admin')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Bimbingan</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('pembinaan.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-bimbingan-admin" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('pembinaan.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('pembinaan.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('pembinaan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Pembinaan</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-penghargaan-admin')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Penghargaan</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('reward.*') || request()->routeIs('jenis-reward.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-penghargaan-admin" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('reward.*') || request()->routeIs('jenis-reward.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('reward.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Reward</a></li>
+                            <li><a href="{{ route('jenis-reward.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('jenis-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Jenis Reward</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-laporan-admin')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Laporan</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('rekap-poin.*') || request()->routeIs('rekap-reward.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-laporan-admin" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('rekap-poin.*') || request()->routeIs('rekap-reward.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('rekap-poin.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-poin.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Rekap Poin</a></li>
+                            <li><a href="{{ route('rekap-reward.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Rekap Reward</a></li>
+                        </ul>
+                    </li>
                 @endif
 
-                @if(in_array(auth()->user()->role, ['admin', 'guru', 'bk']))
+                @if(in_array(auth()->user()->role, ['guru', 'bk']))
                     <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Perilaku</p></li>
                     <li><a href="{{ route('laporan-perilaku.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('laporan-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Laporan Perilaku</span></a></li>
-                    @if(auth()->user()->role === 'admin')
-                    <li><a href="{{ route('kategori-perilaku.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('kategori-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Kategori Perilaku</span></a></li>
-                    <li><a href="{{ route('jenis-perilaku.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('jenis-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Jenis Perilaku</span></a></li>
-                    @endif
                 @endif
 
-                @if(in_array(auth()->user()->role, ['admin', 'bk']))
+                @if(auth()->user()->role === 'bk')
                     <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Bimbingan</p></li>
                     <li><a href="{{ route('pembinaan.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('pembinaan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Pembinaan</span></a></li>
                     <li><a href="#" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors hover:bg-gray-700/50 hover:text-white"><span>Surat Peringatan</span></a></li>
                     <li><a href="#" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors hover:bg-gray-700/50 hover:text-white"><span>Surat Panggilan</span></a></li>
                 @endif
 
-                @if(in_array(auth()->user()->role, ['admin', 'guru', 'kesiswaan']))
+                @if(in_array(auth()->user()->role, ['guru', 'kesiswaan']))
                     <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Penghargaan</p></li>
                     <li><a href="{{ route('reward.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Reward</span></a></li>
-                    @if(auth()->user()->role === 'admin')
-                    <li><a href="{{ route('jenis-reward.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('jenis-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Jenis Reward</span></a></li>
-                    @endif
                 @endif
                 
                 @if(in_array(auth()->user()->role, ['guru', 'bk', 'kesiswaan']))
@@ -87,7 +129,7 @@
                     <li><a href="{{ route('riwayat-pembinaan.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('riwayat-pembinaan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Riwayat Pembinaan</span></a></li>
                 @endif
 
-                @if(in_array(auth()->user()->role, ['admin', 'bk', 'kesiswaan']))
+                @if(in_array(auth()->user()->role, ['bk', 'kesiswaan']))
                     <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Laporan</p></li>
                     <li><a href="{{ route('rekap-poin.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-poin.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Rekap Poin</span></a></li>
                     <li><a href="{{ route('rekap-reward.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Rekap Reward</span></a></li>
@@ -99,10 +141,10 @@
         <div class="p-4 border-t border-gray-700/50 bg-[#0f172a] flex-shrink-0">
             <div class="flex items-center gap-3 mb-4 px-2">
                 <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-inner">
-                    {{ substr(auth()->user()->username ?? 'A', 0, 1) }}
+                    {{ substr(auth()->user()->nama_tampil ?? 'A', 0, 1) }}
                 </div>
                 <div>
-                    <p class="text-sm font-bold text-white leading-tight">{{ auth()->user()->username }}</p>
+                    <p class="text-sm font-bold text-white leading-tight truncate max-w-[150px]">{{ auth()->user()->nama_tampil }}</p>
                     <p class="text-[11px] text-gray-400">{{ ucfirst(auth()->user()->role) }}</p>
                 </div>
             </div>
@@ -131,5 +173,38 @@
         </div>
     </main>
 
+    <script>
+        // Dropdown menu state management
+        const dropdownState = JSON.parse(localStorage.getItem('dropdownState')) || {};
+
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            const button = event.currentTarget;
+            const icon = button.querySelector('svg');
+            
+            if (menu) {
+                menu.classList.toggle('hidden');
+                dropdownState[menuId] = !menu.classList.contains('hidden');
+                localStorage.setItem('dropdownState', JSON.stringify(dropdownState));
+                
+                // Animate icon
+                icon?.classList.toggle('rotate-180');
+            }
+        }
+
+        // Restore dropdown state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            Object.keys(dropdownState).forEach(menuId => {
+                const menu = document.getElementById(menuId);
+                const button = document.querySelector(`[onclick="toggleMenu('${menuId}')"]`);
+                const icon = button?.querySelector('svg');
+                
+                if (menu && dropdownState[menuId]) {
+                    menu.classList.remove('hidden');
+                    icon?.classList.add('rotate-180');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

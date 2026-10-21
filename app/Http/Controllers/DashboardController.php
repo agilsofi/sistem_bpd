@@ -8,6 +8,7 @@ use App\Models\Kelas;
 use App\Models\LaporanPerilaku;
 use App\Models\PoinPelanggaran;
 use App\Models\SP;
+use App\Models\Reward; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,7 @@ class DashboardController extends Controller
 
     private function dashboardAdmin()
     {
+    
         $data = [
             'totalSiswa' => Siswa::count(),
             'totalGuru' => Guru::count(),
@@ -45,6 +47,29 @@ class DashboardController extends Controller
             'laporanBulanIni' => LaporanPerilaku::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->count(),
             'laporanTerbaru' => LaporanPerilaku::with(['siswa.kelas', 'jenisPerilaku', 'guru'])->latest()->take(5)->get(),
         ];
+
+                
+        $data['totalPelanggaran'] = \App\Models\PoinPelanggaran::sum('poin');
+        
+        
+        $data['totalReward'] = \App\Models\KreditReward::sum('kredit_poin');    
+
+        
+        $bulanLabels = [];
+        $dataPelanggaran = [];
+        
+        for ($i = 5; $i >= 0; $i--) {
+            $bulan = now()->subMonths($i);
+            $bulanLabels[] = $bulan->format('M Y'); // Contoh: Oct 2026
+            
+            $count = LaporanPerilaku::whereMonth('tanggal_kejadian', $bulan->month)
+                        ->whereYear('tanggal_kejadian', $bulan->year)
+                        ->count();
+            $dataPelanggaran[] = $count;
+        }
+
+        $data['bulanLabels'] = $bulanLabels;
+        $data['dataPelanggaran'] = $dataPelanggaran;
 
         return view('dashboard.admin', $data);
     }
@@ -116,9 +141,7 @@ class DashboardController extends Controller
     private function dashboardSiswa()
     {
        $user = Auth::user();
-
        $siswa = $user->siswa;
-
        $siswa->load('kelas');
            
        $totalPoin = PoinPelanggaran::where('id_siswa', $siswa->id_siswa)
@@ -135,10 +158,7 @@ class DashboardController extends Controller
         ->take(10)
         ->get();
         
-        $totalLaporan = LaporanPerilaku::where(
-        'id_siswa',
-        $siswa->id_siswa
-        )->count();
+        $totalLaporan = LaporanPerilaku::where('id_siswa', $siswa->id_siswa)->count();
 
         $laporanTerbaru = LaporanPerilaku::with([ 
             'jenisPerilaku.kategori',
@@ -149,12 +169,12 @@ class DashboardController extends Controller
         ->take(5)
         ->get();
     
-    return view('dashboard.siswa', compact(
-        'siswa',
-        'totalPoin',
-        'totalLaporan',
-        'laporanTerbaru',
-        'poinPelanggaran'
-    ));
+        return view('dashboard.siswa', compact(
+            'siswa',
+            'totalPoin',
+            'totalLaporan',
+            'laporanTerbaru',
+            'poinPelanggaran'
+        ));
     }
 }

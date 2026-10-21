@@ -44,6 +44,48 @@
         </div>
     </div>
     <div class="mt-6">
+        
+    <!-- Garis Pembatas -->
+<hr class="my-4 border-gray-200">
+
+<!-- Section Data Orang Tua -->
+<div class="space-y-4 mb-6">
+    <!-- Label Judul -->
+    <div class="text-sm font-medium text-gray-500">Data Orang Tua</div>
+
+    <div>
+        <div class="text-sm text-gray-500 mb-1">Nama Ayah</div>
+        <div class="font-medium text-gray-900">{{ $siswa->nama_ayah ?? '-' }}</div>
+    </div>
+
+    <div>
+        <div class="text-sm text-gray-500 mb-1">Pekerjaan Ayah</div>
+        <div class="font-medium text-gray-900">{{ $siswa->pekerjaan_ayah ?? '-' }}</div>
+    </div>
+
+    <div>
+        <div class="text-sm text-gray-500 mb-1">Nama Ibu</div>
+        <div class="font-medium text-gray-900">{{ $siswa->nama_ibu ?? '-' }}</div>
+    </div>
+
+    <div>
+        <div class="text-sm text-gray-500 mb-1">Pekerjaan Ibu</div>
+        <div class="font-medium text-gray-900">{{ $siswa->pekerjaan_ibu ?? '-' }}</div>
+    </div>
+
+    <div>
+        <div class="text-sm text-gray-500 mb-1">No. HP Orang Tua</div>
+        <div class="font-medium text-gray-900">{{ $siswa->no_hp_orang_tua ?? '-' }}</div>
+    </div>
+</div>
+
+<!-- Section Alamat -->
+<div class="mb-6">
+    <div class="text-sm text-gray-500 mb-1">Alamat</div>
+    <div class="font-medium text-gray-900">{{ $siswa->alamat ?? '-' }}</div>
+</div>
+
+
         <a href="{{ route('siswa.lihat') }}" class="px-4 py-2 bg-gray-600 text-white rounded-lg">Kembali</a>
     </div>
 </div>

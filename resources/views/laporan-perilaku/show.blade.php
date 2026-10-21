@@ -108,6 +108,10 @@
 
         <div class="flex items-center justify-between pt-6 border-t border-gray-200">
             <a href="{{ route('laporan-perilaku.index') }}" class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200">Kembali</a>
+
+            <a href="{{ route('laporan-perilaku.rekap', $laporanPerilaku->id_siswa) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                Lihat Seluruh Rekap Laporan Siswa
+            </a>
         </div>
     </div>
 </div>

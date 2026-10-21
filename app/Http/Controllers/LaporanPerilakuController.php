@@ -204,4 +204,35 @@ class LaporanPerilakuController extends Controller
 
         return response()->json($siswa);
     }
+
+        public function rekapSiswa($id_siswa)
+    {
+        $siswa = Siswa::with('kelas')->findOrFail($id_siswa);
+
+        // 1. Ambil data pelanggaran (Tabel PoinPelanggaran)
+        $pelanggaran = PoinPelanggaran::where('id_siswa', $id_siswa)
+                        ->orderBy('tanggal', 'desc')
+                        ->get();
+
+        // 2. Ambil data REWARD langsung dari tabel KreditReward
+        // Kita panggil relasi 'jenisReward' (jika ada) untuk mendapatkan nama reward-nya
+        $rewards = \App\Models\KreditReward::with(['jenisReward']) 
+                        ->where('id_siswa', $id_siswa)
+                        ->orderBy('tanggal', 'desc') // Asumsi kolom tanggalnya 'tanggal'
+                        ->get();
+
+        // 3. Hitung Total
+        $total_pelanggaran = $pelanggaran->sum('poin');
+        
+        // Menghitung total poin reward dari kolom 'poin' (atau 'kredit') di tabel kredit_reward
+        // Coba gunakan 'poin' dulu, jika error ganti jadi 'kredit'
+                // Ubah bagian ini:
+        // $total_reward = $rewards->sum('poin'); 
+
+        // Menjadi ini (sesuaikan dengan nama kolom di database Anda, coba 'kredit' dulu):
+        $total_reward = $rewards->sum('kredit'); 
+
+        return view('laporan-perilaku.rekap', compact('siswa', 'pelanggaran', 'rewards', 'total_pelanggaran', 'total_reward'));
+    }
+
 }

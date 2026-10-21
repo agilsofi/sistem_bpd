@@ -11,42 +11,35 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('siswa')){
+        // Pengecekan agar tidak error jika tabel sudah ada
+        if (Schema::hasTable('siswa')) {
             return;
         }
+
         Schema::create('siswa', function (Blueprint $table) {
             $table->id('id_siswa');
-
-            $table->string('NIS', 20)
-                ->unique()
-                ->comment('Nomor Induk Siswa');
-
-            $table->string('nama', 100)
-                ->comment('Nama Lengkap');
-
+            $table->string('NIS', 20)->unique()->comment('Nomor Induk Siswa');
+            $table->string('nama', 100)->comment('Nama Lengkap');
             $table->enum('jenis_kelamin', ['L', 'P']);
-
-            $table->date('tanggal_lahir')
-                ->nullable()
-                ->comment('Tanggal Lahir');
-
-            $table->enum('status', [
-                'aktif',
-                'lulus',
-                'dropout',
-                'pindah'
-            ])->default('aktif');
-
-            // Foreign key ditambahkan setelah tabel kelas tersedia.
-            $table->unsignedBigInteger('id_kelas')
-                ->nullable()
-                ->comment('FK ke kelas');
-
-            $table->unsignedBigInteger('id_user')
-                ->nullable()
-                ->comment('FK ke users');
-
+            $table->date('tanggal_lahir')->nullable()->comment('Tanggal Lahir');
+            $table->enum('status', ['aktif', 'lulus', 'dropout', 'pindah'])->default('aktif');
+            
+            // Foreign key
+            $table->unsignedBigInteger('id_kelas')->nullable()->comment('FK ke kelas');
+            $table->unsignedBigInteger('id_user')->nullable()->comment('FK ke users');
+            
             $table->timestamps();
+
+            // Tambahan data orang tua & alamat (dari fitur Anda)
+            $table->string('nama_ayah')->nullable();
+            $table->string('pekerjaan_ayah')->nullable();
+            $table->string('nama_ibu')->nullable();
+            $table->string('pekerjaan_ibu')->nullable();
+            $table->string('no_hp_orang_tua')->nullable();
+            $table->text('alamat')->nullable();
+
+            // Relasi
+            $table->foreign('id_kelas')->references('id_kelas')->on('kelas')->onDelete('set null')->onUpdate('cascade');
         });
     }
 

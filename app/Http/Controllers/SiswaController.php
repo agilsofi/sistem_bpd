@@ -208,6 +208,12 @@ class SiswaController extends Controller
             'status' => 'required|in:aktif,lulus,dropout,pindah',
             'username' => 'required|string|max:50|unique:users,username,' . optional($siswa->user)->id_user . ',id_user',
             'password' => 'nullable|string|min:6',
+            'nama_ayah' => 'nullable|string|max:255',
+            'pekerjaan_ayah' => 'nullable|string|max:255',
+            'nama_ibu' => 'nullable|string|max:255',
+            'pekerjaan_ibu' => 'nullable|string|max:255',
+            'no_hp_orang_tua' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string',
         ]);
 
         $siswa->update([
@@ -217,6 +223,13 @@ class SiswaController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'id_kelas' => $request->id_kelas,
             'status' => $request->status,
+            'status' => $request->status, 
+            'nama_ayah' => $request->nama_ayah,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'nama_ibu' => $request->nama_ibu,
+            'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'no_hp_orang_tua' => $request->no_hp_orang_tua,
+            'alamat' => $request->alamat,
         ]);
 
         if ($siswa->user) {

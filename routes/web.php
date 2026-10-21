@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     // Laporan Perilaku (guru, bk, kesiswaan)
     Route::middleware('role:guru,bk,kesiswaan,admin')->group(function () {
         Route::get('laporan-perilaku/cari-siswa', [LaporanPerilakuController::class, 'cariSiswa'])->name('laporan-perilaku.cari-siswa');
+        Route::get('laporan-perilaku/rekap/{siswa}', [LaporanPerilakuController::class, 'rekapSiswa'])->name('laporan-perilaku.rekap');
         Route::resource('laporan-perilaku', LaporanPerilakuController::class);
     });
 

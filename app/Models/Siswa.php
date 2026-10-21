@@ -17,7 +17,13 @@ class Siswa extends Model
         'tanggal_lahir',
         'id_kelas',
         'status',
-        'id_user'
+        'id_user',
+        'nama_ayah', 
+        'pekerjaan_ayah', 
+        'nama_ibu', 
+        'pekerjaan_ibu', 
+        'no_hp_orang_tua', 
+        'alamat'
     ];
 
     protected $casts = [

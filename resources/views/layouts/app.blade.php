@@ -92,47 +92,102 @@
                     </li>
                 @endif
 
-                @if(in_array(auth()->user()->role, ['guru', 'bk']))
-                    <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Perilaku</p></li>
-                    <li><a href="{{ route('laporan-perilaku.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('laporan-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Laporan Perilaku</span></a></li>
+                @if(auth()->user()->role === 'guru')
+                    @php 
+                        $userGuru = auth()->user()->guru; 
+                        $isWali = $userGuru && $userGuru->is_wali_kelas; 
+                    @endphp
+                    <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Menu Utama</p></li>
+                    <li>
+                        <a href="{{ route('laporan-perilaku.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('laporan-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">
+                            <span>Laporan Perilaku</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('reward.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">
+                            <span>Reward Siswa</span>
+                        </a>
+                    </li>
+                    @if($isWali)
+                    <li>
+                        <a href="{{ route('siswa.wali-kelas') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.wali-kelas') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">
+                            <span>Data Kelas</span>
+                        </a>
+                    </li>
+                    @endif
                 @endif
 
                 @if(auth()->user()->role === 'bk')
-                    <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Bimbingan</p></li>
-                    <li><a href="{{ route('pembinaan.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('pembinaan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Pembinaan</span></a></li>
-                    <li><a href="#" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors hover:bg-gray-700/50 hover:text-white"><span>Surat Peringatan</span></a></li>
-                    <li><a href="#" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors hover:bg-gray-700/50 hover:text-white"><span>Surat Panggilan</span></a></li>
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-perilaku-bk')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Perilaku</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('laporan-perilaku.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-perilaku-bk" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('laporan-perilaku.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('laporan-perilaku.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('laporan-perilaku.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Laporan Perilaku</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-bimbingan-bk')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Bimbingan</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('pembinaan.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-bimbingan-bk" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('pembinaan.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('pembinaan.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('pembinaan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Pembinaan</a></li>
+                            <li><a href="#" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-gray-700/50 hover:text-white">Surat Peringatan</a></li>
+                            <li><a href="#" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-gray-700/50 hover:text-white">Surat Panggilan</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-data-bk')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Data</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('siswa.lihat*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-data-bk" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('siswa.lihat*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('siswa.lihat') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.lihat*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Data Siswa</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-laporan-bk')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Laporan</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('rekap-poin.*') || request()->routeIs('rekap-reward.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-laporan-bk" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('rekap-poin.*') || request()->routeIs('rekap-reward.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('rekap-poin.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-poin.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Rekap Poin</a></li>
+                            <li><a href="{{ route('rekap-reward.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Rekap Reward</a></li>
+                        </ul>
+                    </li>
                 @endif
 
-                @if(in_array(auth()->user()->role, ['guru', 'kesiswaan']))
+                @if(auth()->user()->role === 'kesiswaan')
                     <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Penghargaan</p></li>
                     <li><a href="{{ route('reward.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Reward</span></a></li>
-                @endif
-                
-                @if(in_array(auth()->user()->role, ['guru', 'bk', 'kesiswaan']))
-                    @php $userGuru = auth()->user()->guru; $isWali = $userGuru && $userGuru->is_wali_kelas; @endphp
-                    @if($isWali || auth()->user()->role !== 'guru')
+
                     <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Data</p></li>
-                    @if(auth()->user()->role === 'guru' && $isWali)
-                    <li><a href="{{ route('siswa.wali-kelas') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.wali-kelas') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Data Kelas</span></a></li>
-                    @elseif(auth()->user()->role !== 'guru')
                     <li><a href="{{ route('siswa.lihat') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.lihat*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Data Siswa</span></a></li>
-                    @endif
-                    @endif
                 @endif
 
                 @if(auth()->user()->role === 'siswa')
-                    <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Data Saya</p></li>
-                    <li><a href="{{ route('siswa.profil.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.profil.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Profil</span></a></li>
+                    <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Menu Utama</p></li>
                     <li><a href="{{ route('poin.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('poin.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Poin Pelanggaran</span></a></li>
                     <li><a href="{{ route('kredit-reward.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('kredit-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Kredit Reward</span></a></li>
                     <li><a href="{{ route('riwayat-pembinaan.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('riwayat-pembinaan.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Riwayat Pembinaan</span></a></li>
                 @endif
 
-                @if(in_array(auth()->user()->role, ['bk', 'kesiswaan']))
-                    <li class="pt-5 pb-1"><p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Laporan</p></li>
-                    <li><a href="{{ route('rekap-poin.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-poin.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Rekap Poin</span></a></li>
-                    <li><a href="{{ route('rekap-reward.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}"><span>Rekap Reward</span></a></li>
+                @if(auth()->user()->role === 'kesiswaan')
+                    <li>
+                        <button type="button" onclick="toggleMenu('menu-laporan-kesiswaan')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-400 hover:bg-gray-700/50 hover:text-white">
+                            <span>Laporan</span>
+                            <svg class="w-4 h-4 transition-transform {{ request()->routeIs('rekap-poin.*') || request()->routeIs('rekap-reward.*') ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <ul id="menu-laporan-kesiswaan" class="mt-1 ml-3 pl-3 border-l border-gray-700/50 space-y-1 {{ request()->routeIs('rekap-poin.*') || request()->routeIs('rekap-reward.*') ? '' : 'hidden' }}">
+                            <li><a href="{{ route('rekap-poin.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-poin.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Rekap Poin</a></li>
+                            <li><a href="{{ route('rekap-reward.index') }}" class="block px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('rekap-reward.*') ? 'bg-blue-600 text-white shadow-sm' : 'hover:bg-gray-700/50 hover:text-white' }}">Rekap Reward</a></li>
+                        </ul>
+                    </li>
                 @endif
             </ul>
         </nav>
@@ -140,9 +195,15 @@
         <!-- Profil & Logout -->
         <div class="p-4 border-t border-gray-700/50 bg-[#0f172a] flex-shrink-0">
             <div class="flex items-center gap-3 mb-4 px-2">
+                @if(auth()->user()->role === 'siswa')
+                <a href="{{ route('siswa.profil.index') }}" class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-inner hover:bg-blue-700 transition-colors">
+                    {{ substr(auth()->user()->nama_tampil ?? 'A', 0, 1) }}
+                </a>
+                @else
                 <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-inner">
                     {{ substr(auth()->user()->nama_tampil ?? 'A', 0, 1) }}
                 </div>
+                @endif
                 <div>
                     <p class="text-sm font-bold text-white leading-tight truncate max-w-[150px]">{{ auth()->user()->nama_tampil }}</p>
                     <p class="text-[11px] text-gray-400">{{ ucfirst(auth()->user()->role) }}</p>

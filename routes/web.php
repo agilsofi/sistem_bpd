@@ -89,4 +89,17 @@ Route::middleware('auth')->group(function () {
         Route::put('profil', [\App\Http\Controllers\Siswa\ProfilController::class, 'update'])->name('siswa.profil.update');
     });
 
+    Route::get('/surat-peringatan', function () {
+        return view('surat-peringatan.index');
+    })->name('surat-peringatan.index');
+
+    Route::get('/surat-peringatan/create', function () {
+        return view('surat-peringatan.create');
+    })->name('surat-peringatan.create');
+
+    Route::get('/surat-peringatan/cetak', function () {
+    return view('surat-peringatan.cetak');
+    })->name('surat-peringatan.cetak');
+
+
 });

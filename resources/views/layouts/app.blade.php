@@ -77,7 +77,7 @@
                             <li><a href="{{ route('pembinaan.index') }}" class="block px-3 py-2 text-sm font-medium rounded-lg transition-all {{ request()->routeIs('pembinaan.*') ? 'bg-blue-50 text-blue-700' : 'hover:bg-slate-50 hover:text-slate-900' }}">Pembinaan</a></li>
                             
                             <!-- TAMBAHAN UNTUK ADMIN: Surat Peringatan & Panggilan -->
-                            <li><a href="#" class="block px-3 py-2 text-sm font-medium rounded-lg transition-all hover:bg-slate-50 hover:text-slate-900">Surat Peringatan</a></li>
+                            <li><a href="{{ route('surat-peringatan.index') }}" class="block px-3 py-2 text-sm font-medium rounded-lg transition-all hover:bg-slate-50 hover:text-slate-900">Surat Peringatan</a></li>
                             <li><a href="#" class="block px-3 py-2 text-sm font-medium rounded-lg transition-all hover:bg-slate-50 hover:text-slate-900">Surat Panggilan</a></li>
                             <!-- AKHIR TAMBAHAN -->
 

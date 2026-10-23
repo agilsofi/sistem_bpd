@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <p class="text-sm text-gray-600">Pelapor</p>
-                    <p class="font-medium">{{ $laporan->guru->nama_guru }}</p>
+                    <p class="font-medium">{{ $laporan->guru->nama_guru ?? '(Tidak diketahui)' }}</p>
                 </div>
             </div>
 

@@ -15,10 +15,10 @@
         
         <!-- Tombol Aksi -->
         <div class="flex items-center gap-3">
-            <a href="#" class="inline-flex items-center px-4 py-2.5 text-sm font-semibold text-emerald-700 bg-emerald-50 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition-all shadow-sm">
+            <button type="button" onclick="document.getElementById('import-modal').classList.remove('hidden')" class="inline-flex items-center px-4 py-2.5 text-sm font-semibold text-emerald-700 bg-emerald-50 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition-all shadow-sm cursor-pointer">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                 Import Excel
-            </a>
+            </button>
             <a href="{{ route('siswa.create') }}" class="inline-flex items-center px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Siswa
@@ -26,9 +26,47 @@
         </div>
     </div>
 
+
+<!-- Modal Import CSV -->
+<div id="import-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full mx-4 border border-slate-200">
+        <h3 class="text-lg font-bold text-slate-800 mb-4">
+            Import Data Siswa
+        </h3>
+        <form method="POST" action="{{ route('siswa.import') }}" enctype="multipart/form-data" class="space-y-4">
+            @csrf
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">
+                    File CSV
+                </label>
+                <input
+                    type="file"
+                    name="file"
+                    accept=".csv,.txt"
+                    class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required>
+                <p class="text-xs text-slate-500 mt-2">
+                    Format kolom: NIS, Nama, JK (L/P), Tanggal Lahir (YYYY-MM-DD), Nama Kelas.
+                    Delimiter menggunakan koma atau titik koma.
+                </p>
+            </div>
+            <div class="flex gap-3 justify-end pt-2">
+                <button type="button" onclick="document.getElementById('import-modal').classList.add('hidden')" class="px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors">
+                    Batal
+                </button>
+                <button type="submit" class="px-4 py-2 text-sm font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition-colors shadow-sm">
+                    Import
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
     <!-- Card Filter -->
     <div class="bg-slate-50/80 rounded-2xl border border-slate-200 p-6 shadow-sm backdrop-blur-sm">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-end">
+        <form method="GET" action="{{ route('siswa.index') }}" class="grid grid-cols-1 md:grid-cols-12 gap-5 items-end">
             
             <!-- Input Pencarian -->
             <div class="md:col-span-4">
@@ -37,38 +75,43 @@
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
-                    <input type="text" placeholder="NIS atau Nama..." class="w-full pl-11 pr-4 py-3 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm">
+                    <input type="text" name="q" value="{{ request('q') }}" placeholder="NIS atau Nama..." class="w-full pl-11 pr-4 py-3 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm">
                 </div>
             </div>
             
             <!-- Filter Kelas -->
             <div class="md:col-span-3">
                 <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Kelas</label>
-                <select class="w-full px-4 py-3 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm cursor-pointer">
-                    <option>Semua Kelas</option>
+                <select name="id_kelas" class="w-full px-4 py-3 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm cursor-pointer">
+                    <option value="">Semua Kelas</option>
+                    @foreach($kelas as $k)
+                    <option value="{{ $k->id_kelas }}" {{ request('id_kelas') == $k->id_kelas ? 'selected' : '' }}>{{ $k->nama_kelas }}</option>
+                    @endforeach
                 </select>
             </div>
             
             <!-- Filter Status -->
             <div class="md:col-span-3">
                 <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Status</label>
-                <select class="w-full px-4 py-3 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm cursor-pointer">
-                    <option>Semua Status</option>
-                    <option>Aktif</option>
-                    <option>Lulus</option>
+                <select name="status" class="w-full px-4 py-3 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm cursor-pointer">
+                    <option value="">Semua Status</option>
+                    <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                    <option value="lulus" {{ request('status') == 'lulus' ? 'selected' : '' }}>Lulus</option>
+                    <option value="dropout" {{ request('status') == 'dropout' ? 'selected' : '' }}>Dropout</option>
+                    <option value="pindah" {{ request('status') == 'pindah' ? 'selected' : '' }}>Pindah</option>
                 </select>
             </div>
             
             <!-- Tombol Aksi Filter -->
             <div class="md:col-span-2 flex gap-3">
-                <button type="button" class="w-full px-4 py-3 text-sm font-semibold text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-all shadow-sm">
+                <a href="{{ route('siswa.index') }}" class="w-full px-4 py-3 text-sm font-semibold text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-all shadow-sm text-center">
                     Reset
-                </button>
-                <button type="button" class="w-full px-4 py-3 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20">
+                </a>
+                <button type="submit" class="w-full px-4 py-3 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20">
                     Cari
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 
     <!-- Card Tabel -->

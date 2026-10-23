@@ -98,7 +98,7 @@
                     <td class="px-6 py-4 text-sm text-gray-600">{{ $item->siswa?->kelas->nama_kelas ?? '-' }}</td>
                     <td class="px-6 py-4 text-sm text-gray-900">{{ $item->jenisPerilaku->nama_perilaku }}</td>
                     <td class="px-6 py-4 text-sm text-gray-900">{{ $item->jenisPerilaku->poin_pelanggaran }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">{{ $item->guru->nama_guru }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{{ $item->guru->nama_guru ?? '(Tidak diketahui)' }}</td>
                     <td class="px-6 py-4 text-sm">
                         <span class="px-2 py-1 text-xs rounded 
                             {{ $item->status_verifikasi == 'menunggu' ? 'bg-yellow-100 text-yellow-800' : '' }}

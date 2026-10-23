@@ -94,7 +94,7 @@
                 
                 <!-- Ambil poin -->
                 <!-- Mengambil poin dari kolom kredit/jumlah -->
-<td class="border-b border-gray-200 px-4 py-3 text-center text-green-600 font-bold">{{ $r->kredit ?? $r->jumlah_kredit ?? $r->poin ?? 0 }}</td>
+<td class="border-b border-gray-200 px-4 py-3 text-center text-green-600 font-bold">{{ $r->kredit_poin ?? 0 }}</td>
             @empty
                 <tr>
                     <td colspan="4" class="border-b border-gray-200 px-4 py-6 text-center text-gray-500 italic">Tidak ada data reward.</td>

@@ -54,7 +54,7 @@
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="NIP atau Nama Guru..." class="w-full pl-11 pr-4 h-[46px] text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="NUPTK atau Nama Guru..." class="w-full pl-11 pr-4 h-[46px] text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm">
                 </div>
             </div>
             
@@ -64,15 +64,15 @@
                 <select name="status" class="w-full px-4 h-[46px] text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all bg-white shadow-sm cursor-pointer">
                     <option value="">Semua Status</option>
                     <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="tidak_aktif" {{ request('status') == 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
                        <!-- Tombol Aksi Filter (Di Pojok Kanan) -->
             <div class="md:col-span-4 flex justify-end gap-3">
-                <button type="button" class="px-6 h-[46px] text-sm font-semibold text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-all shadow-sm">
+                <a href="{{ route('guru.index') }}" class="px-6 h-[46px] text-sm font-semibold text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-all shadow-sm flex items-center justify-center">
                     Reset
-                </button>
-                <button type="button" class="px-8 h-[46px] text-sm font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20">
+                </a>
+                <button type="submit" class="px-8 h-[46px] text-sm font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20">
                     Cari
                 </button>
             </div>
@@ -88,7 +88,7 @@
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">File CSV</label>
                     <input type="file" name="file" accept=".csv,.txt" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                    <p class="text-xs text-slate-500 mt-2">Format kolom: NIP, Nama_Guru, Jenis_Kelamin (L/P), Tempat_Lahir, Tanggal_Lahir (YYYY-MM-DD), No_Telepon, Email, Alamat</p>
+                    <p class="text-xs text-slate-500 mt-2">Format kolom: NUPTK, Nama_Guru, Jenis_Kelamin (L/P), Tempat_Lahir, Tanggal_Lahir (YYYY-MM-DD), No_Telepon, Email, Alamat</p>
                 </div>
                 <div class="flex gap-3 justify-end pt-2">
                     <button type="button" onclick="document.getElementById('importModal').classList.add('hidden')" class="px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors">
@@ -109,7 +109,7 @@
                 <thead>
                     <tr class="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-200">
                         <th class="px-6 py-4 font-bold w-16 text-center">No</th>
-                        <th class="px-6 py-4 font-bold">NIP</th>
+                        <th class="px-6 py-4 font-bold">NUPTK</th>
                         <th class="px-6 py-4 font-bold">Nama Guru</th>
                         <th class="px-6 py-4 font-bold text-center">Jenis Kelamin</th>
                         <th class="px-6 py-4 font-bold text-center">Wali Kelas</th>
@@ -121,7 +121,7 @@
                     @forelse($guru as $index => $item)
                     <tr class="hover:bg-slate-50/80 transition-colors group">
                         <td class="px-6 py-4 text-sm text-slate-400 text-center">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 text-sm font-semibold text-slate-700">{{ $item->nip }}</td>
+                        <td class="px-6 py-4 text-sm font-semibold text-slate-700">{{ $item->nuptk }}</td>
                         <td class="px-6 py-4">
                             <div class="flex items-center">
                                 <div class="w-9 h-9 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-bold mr-3 border border-indigo-100">

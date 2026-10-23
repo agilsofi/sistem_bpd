@@ -55,7 +55,7 @@
                     <select name="id_wali_kelas" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="">-- Tidak Ada --</option>
                         @foreach($guru as $g)
-                        <option value="{{ $g->id_guru }}" {{ old('id_wali_kelas', $kelas->id_wali_kelas) == $g->id_guru ? 'selected' : '' }}>{{ $g->nama_guru }} ({{ $g->nip }})</option>
+                        <option value="{{ $g->id_guru }}" {{ old('id_wali_kelas', $kelas->id_wali_kelas) == $g->id_guru ? 'selected' : '' }}>{{ $g->nama_guru }} ({{ $g->nuptk }})</option>
                         @endforeach
                     </select>
                     <p class="text-xs text-gray-500 mt-1">Hanya wali kelas yang dapat melihat data siswa kelas ini.</p>
@@ -63,7 +63,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Kapasitas <span class="text-red-600">*</span></label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah <span class="text-red-600">*</span></label>
                     <input type="number" name="kapasitas" value="{{ old('kapasitas', $kelas->kapasitas) }}" min="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     @error('kapasitas') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
                 </div>

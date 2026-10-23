@@ -34,9 +34,9 @@
                     <td class="px-6 py-4 text-sm text-gray-900">{{ $item->tanggal_kejadian->format('d/m/Y') }}</td>
                     <td class="px-6 py-4 text-sm text-gray-900">{{ $item->siswa->nama ?? '(Tidak disebutkan)' }}</td>
                     <td class="px-6 py-4 text-sm text-gray-600">{{ $item->siswa?->kelas->nama_kelas ?? '-' }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-900">{{ $item->jenisPerilaku->nama_perilaku }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-900">{{ $item->jenisPerilaku->poin_pelanggaran }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">{{ $item->guru->nama_guru }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-900">{{ $item->jenisPerilaku->nama_perilaku ?? '-' }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-900">{{ $item->jenisPerilaku->poin_pelanggaran ?? 0 }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{{ $item->guru->nama_guru ?? '(Tidak diketahui)' }}</td>
                     <td class="px-6 py-4 text-sm text-right">
                         <a href="{{ route('laporan-perilaku.verifikasi', $item->id_laporan) }}" class="text-blue-600 hover:text-blue-800">Verifikasi</a>
                     </td>

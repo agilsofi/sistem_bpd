@@ -74,7 +74,7 @@ class LaporanPerilakuController extends Controller
 
         $laporan = LaporanPerilaku::create([
             'id_siswa' => $request->id_siswa,
-            'id_guru' => Auth::user()->guru->id_guru,
+            'id_guru' => Auth::user()->id_guru,
             'id_jenis_perilaku' => $request->id_jenis_perilaku,
             'tanggal_kejadian' => $request->tanggal_kejadian,
             'keterangan' => $request->keterangan,
@@ -231,15 +231,9 @@ class LaporanPerilakuController extends Controller
         // 3. Hitung Total
         $total_pelanggaran = $pelanggaran->sum('poin');
         
-        // Menghitung total poin reward dari kolom 'poin' (atau 'kredit') di tabel kredit_reward
-        // Coba gunakan 'poin' dulu, jika error ganti jadi 'kredit'
-                // Ubah bagian ini:
-        // $total_reward = $rewards->sum('poin'); 
-
-        // Menjadi ini (sesuaikan dengan nama kolom di database Anda, coba 'kredit' dulu):
-        $total_reward = $rewards->sum('kredit'); 
+        // Menghitung total poin reward dari kolom 'kredit_poin'
+        $total_reward = $rewards->sum('kredit_poin'); 
 
         return view('laporan-perilaku.rekap', compact('siswa', 'pelanggaran', 'rewards', 'total_pelanggaran', 'total_reward'));
     }
-
 }

@@ -38,7 +38,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <p class="text-sm font-medium text-gray-900">{{ $laporan->jenisPerilaku->nama_perilaku }}</p>
-                                <p class="text-xs text-gray-500">{{ $laporan->tanggal_kejadian->format('d/m/Y') }} • Dilaporkan oleh: {{ $laporan->guru->nama_guru }}</p>
+                                <p class="text-xs text-gray-500">{{ $laporan->tanggal_kejadian->format('d/m/Y') }} • Dilaporkan oleh: {{ $laporan->guru->nama_guru ?? '(Tidak diketahui)' }}</p>
                             </div>
                             <span class="px-2 py-1 text-xs rounded 
                                 {{ $laporan->status_verifikasi == 'menunggu' ? 'bg-yellow-100 text-yellow-800' : '' }}

@@ -26,7 +26,7 @@
             <tr>
                 <td class="px-6 py-4 text-sm text-gray-900">{{ $item->tanggal->format('d/m/Y') }}</td>
                 <td class="px-6 py-4 text-sm text-gray-900">{{ $item->laporan->jenisPerilaku->nama_perilaku }}</td>
-                <td class="px-6 py-4 text-sm text-gray-900">{{ $item->pemberi->nama_guru }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ $item->pemberi->nama_guru ?? '(Tidak diketahui)' }}</td>
                 <td class="px-6 py-4 text-sm font-medium text-red-600 text-right">+{{ $item->poin }}</td>
             </tr>
             @empty

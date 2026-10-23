@@ -11,10 +11,30 @@ use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $siswa = Siswa::with('kelas')->latest()->get();
-        return view('siswa.index', compact('siswa'));
+        $query = Siswa::with('kelas');
+
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where(function($sub) use ($q) {
+                $sub->where('nama', 'like', "%{$q}%")
+                    ->orWhere('NIS', 'like', "%{$q}%");
+            });
+        }
+
+        if ($request->filled('id_kelas')) {
+            $query->where('id_kelas', $request->id_kelas);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $siswa = $query->latest()->get();
+        $kelas = Kelas::orderBy('nama_kelas')->get();
+
+        return view('siswa.index', compact('siswa', 'kelas'));
     }
 
     public function import(Request $request)

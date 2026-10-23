@@ -32,7 +32,7 @@
                         <td class="px-6 py-4 text-sm text-gray-900">{{ $item->tanggal->format('d/m/Y') }}</td>
                         <td class="px-6 py-4 text-sm text-gray-900">{{ $item->jenisReward->nama_reward ?? '-' }}</td>
                         <td class="px-6 py-4 text-sm text-gray-900">{{ $item->alasan }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-900">{{ $item->pemberi->nama_guru ?? '-' }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-900">{{ $item->pemberi->nama_guru ?? '(Tidak diketahui)' }}</td>
                         <td class="px-6 py-4 text-sm font-medium text-green-600 text-right">+{{ $item->kredit_poin }}</td>
                     </tr>
                     @empty

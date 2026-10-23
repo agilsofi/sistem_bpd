@@ -33,7 +33,7 @@
                 <select name="id_guru" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500">
                     <option value="">-- Pilih Guru --</option>
                     @foreach($guru as $g)
-                    <option value="{{ $g->id_guru }}" {{ old('id_guru') == $g->id_guru ? 'selected' : '' }}>{{ $g->nama_guru }} ({{ $g->nip }})</option>
+                    <option value="{{ $g->id_guru }}" {{ old('id_guru') == $g->id_guru ? 'selected' : '' }}>{{ $g->nama_guru }} ({{ $g->nuptk }})</option>
                     @endforeach
                 </select>
                 @error('id_guru') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror

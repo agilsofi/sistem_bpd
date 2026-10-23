@@ -28,7 +28,7 @@
         </div>
         <div>
             <p class="text-sm text-gray-500">Diberikan Oleh</p>
-            <p class="font-medium text-gray-900">{{ $reward->pemberi->nama_guru }}</p>
+            <p class="font-medium text-gray-900">{{ $reward->pemberi->nama_guru ?? '(Tidak diketahui)' }}</p>
         </div>
     </div>
     <div class="mt-6">

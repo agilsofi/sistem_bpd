@@ -10,9 +10,20 @@ use Illuminate\Support\Facades\Storage;
 
 class GuruController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $guru = Guru::latest()->get();
+        $query = Guru::query();
+        
+        if ($request->filled('search')) {
+            $query->where('nama_guru', 'like', '%' . $request->search . '%')
+                  ->orWhere('nuptk', 'like', '%' . $request->search . '%');
+        }
+        
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $guru = $query->latest()->get();
         return view('guru.index', compact('guru'));
     }
 
@@ -46,12 +57,12 @@ class GuruController extends Controller
 
             if (count($row) < 2) continue;
             
-            $nip = trim($row[0]);
+            $nuptk = trim($row[0]);
             $nama = trim($row[1]);
-            if (empty($nip) || empty($nama)) continue;
+            if (empty($nuptk) || empty($nama)) continue;
 
             $guru = Guru::updateOrCreate(
-                ['nip' => $nip],
+                ['nuptk' => $nuptk],
                 [
                     'nama_guru' => $nama,
                     'jenis_kelamin' => isset($row[2]) ? (strtoupper(trim($row[2])) == 'P' ? 'P' : 'L') : 'L',
@@ -65,9 +76,9 @@ class GuruController extends Controller
             );
 
             User::updateOrCreate(
-                ['username' => $nip],
+                ['username' => $nuptk],
                 [
-                    'password' => Hash::make($nip),
+                    'password' => Hash::make($nuptk),
                     'role' => 'guru',
                     'id_guru' => $guru->id_guru,
                     'status' => 'aktif',
@@ -76,7 +87,7 @@ class GuruController extends Controller
             $count++;
         }
 
-        return redirect()->route('guru.index')->with('success', "$count data guru berhasil diimport. Username & Password default menggunakan NIP.");
+        return redirect()->route('guru.index')->with('success', "$count data guru berhasil diimport. Username & Password default menggunakan NUPTK.");
     }
 
     public function create()
@@ -87,7 +98,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'required|string|max:20|unique:guru,nip',
+            'nuptk' => 'required|string|max:20|unique:guru,nuptk',
             'nama_guru' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'tempat_lahir' => 'nullable|string|max:50',
@@ -129,7 +140,7 @@ class GuruController extends Controller
     public function update(Request $request, Guru $guru)
     {
         $request->validate([
-            'nip' => 'required|string|max:20|unique:guru,nip,' . $guru->id_guru . ',id_guru',
+            'nuptk' => 'required|string|max:20|unique:guru,nuptk,' . $guru->id_guru . ',id_guru',
             'nama_guru' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'tempat_lahir' => 'nullable|string|max:50',

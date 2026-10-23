@@ -90,7 +90,7 @@
                         <th class="px-6 py-4 font-bold">Jurusan</th>
                         <th class="px-6 py-4 font-bold">Wali Kelas</th>
                         <th class="px-6 py-4 font-bold text-center">Tahun Ajaran</th>
-                        <th class="px-6 py-4 font-bold text-center">Kapasitas</th>
+                        <th class="px-6 py-4 font-bold text-center">Jumlah</th>
                         <th class="px-6 py-4 font-bold text-center w-48">Aksi</th>
                     </tr>
                 </thead>

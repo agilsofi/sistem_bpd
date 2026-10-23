@@ -12,9 +12,9 @@
             <div class="space-y-6">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">NIP <span class="text-red-600">*</span></label>
-                        <input type="text" name="nip" value="{{ old('nip') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        @error('nip') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+                        <label class="block text-sm font-medium text-gray-700 mb-2">NUPTK <span class="text-red-600">*</span></label>
+                        <input type="text" name="nuptk" value="{{ old('nuptk') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        @error('nuptk') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
